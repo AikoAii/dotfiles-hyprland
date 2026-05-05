@@ -85,7 +85,7 @@
     "format": "{icon}",
     "rotate": 0,
     "icon-size": 18,
-    "icon-theme": "oomox-Catppuccin-Mocha",
+    "icon-theme": "Papirus-Dark",
     "spacing": 0,
     "tooltip-format": "{title}",
     "on-click": "activate",
@@ -95,7 +95,7 @@
     }
   },
   "custom/media": {
-    "exec": "~/.local/bin/media",
+    "exec": "~/.config/AikoAi/media",
     "return-type": "json",
     "interval": 2,
     "max-length": 30,
@@ -108,7 +108,7 @@
   //==> Middle Modules
   ///////////////////////////////////////////////////////////////
   "custom/cpu": {
-    "exec": "sysinfo cpu",
+    "exec": "~/.config/AikoAi/sysinfo cpu",
     "on-click": "",
     "return-type": "json",
     "format": "{}  ",
@@ -117,7 +117,7 @@
     "tooltip": true
   },
   "custom/ram": {
-    "exec": "sysinfo ram",
+    "exec": "~/.config/AikoAi/sysinfo ram",
     "return-type": "json",
     "format": "{}  ",
     "rotate": 0,
@@ -125,7 +125,7 @@
     "tooltip": true
   },
   "custom/temp": {
-    "exec": "sysinfo temp",
+    "exec": "~/.config/AikoAi/sysinfo temp",
     "on-click": "",
     "return-type": "json",
     "format": "{}",
@@ -168,7 +168,7 @@
     }
   },
   "custom/battery": {
-    "exec": "battery",
+    "exec": "~/.config/AikoAi/battery",
     "return-type": "json",
     "format": "{}  ",
     "interval": 3,
@@ -177,38 +177,38 @@
     "tooltip": false
   },
   "custom/brightness": {
-    "exec": "brightness",
+    "exec": "~/.config/AikoAi/brightness",
     "return-type": "json",
     "format": "{}  ",
     "interval": 1,
     "rotate": 0,
-    "on-scroll-up": "bash -c 'brightnessctl set 5%+'",
-    "on-scroll-down": "bash -c 'brightnessctl set 5%-'",
+    "on-scroll-up": "bash -c 'brightnessctl set 5%+ && swayosd-client --brightness raise'",
+    "on-scroll-down": "bash -c 'brightnessctl set 5%- && swayosd-client --brightness lower'",
     "on-click-left": "",
     "on-click-right": "",
     "tooltip": false
   },
   "custom/volume": {
-    "exec": "volume",
+    "exec": "~/.config/AikoAi/volume",
     "return-type": "json",
     "format": "{}  ",
     "interval": 1,
     "rotate": 0,
     "on-click": "bash -c 'wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle'",
-    "on-scroll-up": "bash -c 'wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+'",
-    "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
+    "on-scroll-up": "bash -c 'wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+ && swayosd-client --output-volume raise'",
+    "on-scroll-down": "bash -c 'wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && swayosd-client --output-volume lower'",
     "scroll-step": 5,
     "tooltip": false
   },
   "custom/microphone": {
-    "exec": "mic",
+    "exec": "~/.config/AikoAi/mic",
     "return-type": "json",
     "format": "{}",
     "interval": 1,
     "rotate": 0,
-    "on-click": "bash -c 'wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle'",
-    "on-scroll-up": "bash -c 'wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SOURCE@ 5%+'",
-    "on-scroll-down": "bash -c 'wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SOURCE@ 5%-'",
+    "on-click": "bash -c 'wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && swayosd-client --input-volume mute-toggle'",
+    "on-scroll-up": "bash -c 'wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SOURCE@ 5%+ && swayosd-client --input-volume raise'",
+    "on-scroll-down": "bash -c 'wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SOURCE@ 5%- && swayosd-client --input-volume lower'",
     "scroll-step": 5,
     "tooltip": false
   },
@@ -226,14 +226,14 @@
     "interval": 3600
   },
   "custom/system-update": {
-    "exec": "~/.local/bin/updates",
+    "exec": "~/.config/AikoAi/updates",
     "return-type": "json",
     "interval": 1,
     "on-click": "kitty -e bash -c 'sudo pacman -Syu && flatpak update -y'",
     "tooltip": false
   },
   "custom/do-not-disturb": {
-    "exec": "dnd",
+    "exec": "~/.config/AikoAi/dnd",
     "return-type": "json",
     "format": "{} ",
     "interval": 2,
@@ -250,7 +250,7 @@
     "tooltip": false
   },
   "custom/networkmanager": {
-    "exec": "network",
+    "exec": "~/.config/AikoAi/network",
     "return-type": "json",
     "format": "{}  ",
     "interval": 3,

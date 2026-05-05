@@ -25,7 +25,8 @@ alias m="micro"
 #####################################
 ## ==> FILE & VIEW
 #####################################
-
+alias py="python"
+alias gpp="g++"
 # modern ls (lsd)
 alias ls="lsd"
 alias l="lsd -lah"
@@ -68,7 +69,6 @@ alias rbt="loginctl reboot"
 #####################################
 alias ssh="kitty +kitten ssh"
 alias pi="ping google.com"
-alias set-ttl="sudo sysctl -w net.ipv4.ip_default_ttl=65" #Buat thetering axis unlimited
 
 #####################################
 ## ==> DEV TOOLS
@@ -110,6 +110,7 @@ alias gcl="git clone"
 alias glog="git log --oneline --graph --decorate"
 alias gundo="git reset --soft HEAD~1"
 alias gclean="git clean -fd"
+
 
 #####################################
 ## ==> QUICK ACCESS

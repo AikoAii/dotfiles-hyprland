@@ -1,0 +1,72 @@
+#!/bin/bash
+
+mode="$1"
+
+# --- CPU ---
+get_cpu() {
+    read -r _ u n s i w irq sirq st _ < /proc/stat
+    t1=$((u+n+s+i+w+irq+sirq+st))
+    i1=$((i+w))
+
+    sleep 0.3
+
+    read -r _ u n s i w irq sirq st _ < /proc/stat
+    t2=$((u+n+s+i+w+irq+sirq+st))
+    i2=$((i+w))
+
+    dt=$((t2 - t1))
+    di=$((i2 - i1))
+
+    echo $((100 * (dt - di) / dt))
+}
+
+# --- RAM ---
+get_ram() {
+    while read -r k v _; do
+        case $k in
+            MemTotal:) t=$v ;;
+            MemAvailable:) a=$v ;;
+        esac
+    done < /proc/meminfo
+
+    used=$((t - a))
+
+    # convert ke GB (1 angka desimal biar clean)
+    awk "BEGIN {printf \"%.1f\", $used/1024/1024}"
+}
+
+# --- TEMP ---
+get_temp() {
+    for hw in /sys/class/hwmon/hwmon*; do
+        name=$(cat "$hw/name" 2>/dev/null)
+        case "$name" in
+            coretemp|k10temp|zenpower|cpu*)
+                for t in "$hw"/temp*_input; do
+                    [ -f "$t" ] || continue
+                    echo $(( $(cat "$t") / 1000 ))
+                    return
+                done
+            ;;
+        esac
+    done
+    echo "N/A"
+}
+
+cpu=$(get_cpu)
+ram=$(get_ram)
+temp=$(get_temp)
+
+case "$mode" in
+    cpu)
+        printf '{"text":" %d%%","tooltip":"CPU: %d%%"}\n' "$cpu" "$cpu"
+        ;;
+    ram)
+        printf '{"text":"  %s GB","tooltip":"RAM Used: %s GB"}\n' "$ram" "$ram"
+        ;;
+    temp)
+        printf '{"text":" %s°C","tooltip":"Temp: %s°C"}\n' "$temp" "$temp"
+        ;;
+    *)
+        printf '{"text":" %d%%   %d%%  %s°C"}\n' "$cpu" "$ram" "$temp"
+        ;;
+esac

@@ -7,10 +7,20 @@ end
 # them before even executing _fzf_search_variables. We use psub to store the
 # variables' info in temporary files and pass in the filenames as arguments.
 # This variable is global so that it can be referenced by fzf_configure_bindings and in tests
-set --global _fzf_search_vars_command '_fzf_search_variables (set --show | psub) (set --names | psub)'
+if not set -q _fzf_search_vars_command
+    set --global _fzf_search_vars_command ...
+end
 
 # Install the default bindings, which are mnemonic and minimally conflict with fish's preset bindings
-fzf_configure_bindings
+if status is-interactive
+function __fzf_init --on-event fish_prompt
+    functions -e __fzf_init
+
+    fzf_configure_bindings
+
+    emit fzf_ready
+end
+end
 
 # Doesn't erase autoloaded _fzf_* functions because they are not easily accessible once key bindings are erased
 function _fzf_uninstall --on-event fzf_uninstall

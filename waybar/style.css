@@ -12,6 +12,10 @@
 @define-color accent-fg rgba(30, 30, 46, 1);
 @define-color critical #f38ba8;
 
+tooltip {
+  opacity: 1;
+}
+
 /* =====================
  * GLOBAL
  * ===================== */
@@ -19,7 +23,7 @@
   border: none;
   border-radius: 0;
   font-family: "JetBrainsMono Nerd Font", sans-serif;
-  font-weight: bold;
+  font-weight: normal;
   font-size: 13px;
   min-height: 14px;
 }
@@ -150,7 +154,11 @@ tooltip {
 }
 
 /* WARNING */
-#custom-volume.warning,
+#custom-volume.warning {
+  color: #f9e2af;
+  text-shadow: 0 0 6px rgba(249, 226, 175, 0.6);
+}
+
 #custom-battery.warning,
 #custom-system-update.warning {
   color: #f9e2af;
@@ -202,6 +210,13 @@ tooltip {
 
 #custom-battery.critical {
   color: #f38ba8;
+  animation: pulse 1s infinite;
+  text-shadow: 0 0 8px rgba(243, 139, 168, 0.6);
+}
+
+#custom-battery.charging {
+  color: #89b4fa;
+  text-shadow: 0 0 6px rgba(137, 180, 250, 0.6);
 }
 
 #custom-volume {
@@ -209,7 +224,7 @@ tooltip {
 }
 
 #custom-microphone {
-  color: #a6e3a1;
+  color: #94e2d5;
 }
 
 #custom-brightness {
@@ -230,6 +245,7 @@ tooltip {
 
 #clock {
   color: #cdd6f4;
+  font-weight: bold;
 }
 
 #language {
@@ -297,7 +313,7 @@ tooltip {
 
 #custom-cava {
   font-family: JetBrainsMono Nerd Font, monospace;
-  font-size: 13px;
+  font-size: 10px;
   letter-spacing: 2px;
 
   padding: 2px 12px;
@@ -310,3 +326,11 @@ tooltip {
   border: 1px solid rgba(203, 166, 247, 0.15);
 }
 
+
+tooltip {
+  transition: opacity 0.1s ease-out;
+}
+
+window#waybar:hover tooltip {
+  opacity: 1;
+}
