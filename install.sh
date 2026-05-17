@@ -1,15 +1,12 @@
 #!/usr/bin/env bash
-set -euo pipefail
-
-# Hyprland Dotfiles Installer
-# Modular, safe, init-agnostic dotfiles setup
+set -Eeuo pipefail
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 export DOTFILES_DIR
 
-# Load shared helper library (colors, logging, utilities)
 source "${DOTFILES_DIR}/scripts/utils/lib.sh"
-export -f info ok warn error step notify safe_symlink ensure_dir
+
+trap 'error "Installation failed in ${BASH_SOURCE[1]} at line ${BASH_LINENO[0]}: ${BASH_COMMAND}"' ERR
 
 step "Hyprland Dotfiles Installer"
 info "Source: ${DOTFILES_DIR}"
