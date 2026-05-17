@@ -4,21 +4,26 @@
 run_checks() {
     step "Running pre-flight checks..."
 
+    # --- Root check ---
+    if [[ $EUID -eq 0 ]]; then
+        error "Do not run this installer as root or with sudo."
+    fi
+
     # --- OS Check ---
-    if [[ "$OSTYPE" != "linux-gnu"* ]]; then
+    if [[ "$OSTYPE" != linux* ]]; then
         error "Unsupported OS: $OSTYPE. This setup is Linux-only."
     fi
     ok "OS: Linux"
 
     # --- Wayland Check ---
     if [[ -z "${WAYLAND_DISPLAY:-}" ]] && [[ -z "${XDG_SESSION_TYPE:-}" ]]; then
-        warn "WAYLAND_DISPLAY not set. Ensure you are running a Wayland session."
+        warn "Wayland session not detected. This is fine during installation, but Hyprland requires Wayland at runtime."
     else
         ok "Session: Wayland"
     fi
 
     # --- Required commands ---
-    local required=(git stow ln mkdir cp chmod)
+    local required=(git ln mkdir cp chmod)
     for cmd in "${required[@]}"; do
         if ! command -v "$cmd" &>/dev/null; then
             error "Required command missing: $cmd"
@@ -28,8 +33,10 @@ run_checks() {
 
     # --- Package manager check ---
     if command -v pacman &>/dev/null; then
+        export PKG_MANAGER="pacman"
         ok "Package manager: pacman"
     elif command -v dnf &>/dev/null; then
+        export PKG_MANAGER="dnf"
         ok "Package manager: dnf"
     else
         warn "No supported package manager detected. Manual dependency install may be required."
