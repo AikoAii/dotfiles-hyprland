@@ -3,10 +3,16 @@
 setup_services() {
     info "Setting up services..."
     
-    if command -v systemctl &> /dev/null; then
-        systemctl --user enable --now wireplumber.service pipewire-pulse.service pipewire.service 2>/dev/null || true
-        ok "Systemd services enabled."
-    else
-        warn "systemd not found. If using dinit or OpenRC, please enable pipewire services manually."
-    fi
+    # Source init abstractions
+    source "${DOTFILES_DIR}/scripts/install/init/detect-init.sh"
+    source "${DOTFILES_DIR}/scripts/install/init/common.sh"
+    
+    detect_init
+    load_init_backend
+    
+    enable_service "wireplumber" "user"
+    enable_service "pipewire-pulse" "user"
+    enable_service "pipewire" "user"
+    
+    ok "Audio services configured for $INIT_SYSTEM."
 }
