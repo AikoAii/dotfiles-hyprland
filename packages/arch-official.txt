@@ -14,7 +14,6 @@ cliphist
 wl-clipboard
 
 pipewire
-pipewire-audio
 pipewire-pulse
 wireplumber
 pwvucontrol
@@ -39,10 +38,6 @@ xdg-desktop-portal-hyprland
 qt5-wayland
 qt6-wayland
 xdg-utils
-
-seatd
-elogind
-dbus
 
 atuin
 btop

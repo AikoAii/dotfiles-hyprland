@@ -29,13 +29,23 @@ See the [packages](./packages) directory for explicit dependency lists based on 
 We provide a safe, modular installation script that will backup your existing configurations before applying the new ones.
 
 ```bash
-# Clone the repository
 git clone https://github.com/AikoAii/dotfiles-hyprland.git ~/.config/dotfiles
 
-# Run the installer
 cd ~/.config/dotfiles
+
+chmod +x install.sh
+
 ./install.sh
 ```
+
+## Supported Distributions
+
+- Arch Linux
+- Artix Linux
+- Fedora (experimental)
+
+> Artix support includes OpenRC, runit, and dinit abstractions.
+> Arch and Artix users are recommended to install an AUR helper such as `yay` or `paru`.
 
 For a detailed manual installation, please refer to the [Installation Guide](docs/installation.md).
 
