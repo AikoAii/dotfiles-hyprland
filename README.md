@@ -16,13 +16,14 @@
 - **File Manager**: Yazi (CLI)
 - **Theme**: Catppuccin Mocha aesthetic across all applications
 - **Audio**: Pipewire + Wireplumber
+- **Universal Init**: Support for systemd, dinit, OpenRC, and runit
 
 ## Dependencies
 
 See the [packages](./packages) directory for explicit dependency lists based on your distribution:
-- [Arch Linux](./packages/arch.txt)
-- [Artix Linux](./packages/artix.txt)
-- [Fedora](./packages/fedora.txt)
+- [Arch Linux](./packages/arch.txt) (systemd)
+- [Artix Linux](./packages/artix.txt) (dinit, runit, openrc)
+- [Fedora](./packages/fedora.txt) (systemd)
 
 ## Installation
 
