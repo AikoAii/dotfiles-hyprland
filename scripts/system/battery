@@ -1,0 +1,49 @@
+#!/bin/bash
+
+# cari battery
+for bat in /sys/class/power_supply/BAT*; do
+    [ -d "$bat" ] && break
+done
+
+# fallback kalau tidak ada battery
+[ ! -d "$bat" ] && echo '{"text":"󱟩","class":"unknown"}' && exit
+
+# ambil data
+capacity=$(cat "$bat/capacity" 2>/dev/null)
+status=$(cat "$bat/status" 2>/dev/null)
+
+# fallback kalau gagal baca
+[ -z "$capacity" ] && capacity=0
+[ -z "$status" ] && status="Unknown"
+
+# --- ICON ---
+if [ "$status" = "Charging" ]; then
+    icon="󰂄"
+elif [ "$capacity" -ge 90 ]; then
+    icon="󰁹"
+elif [ "$capacity" -ge 70 ]; then
+    icon="󰂂"
+elif [ "$capacity" -ge 50 ]; then
+    icon="󰂀"
+elif [ "$capacity" -ge 30 ]; then
+    icon="󰁾"
+elif [ "$capacity" -ge 15 ]; then
+    icon="󰁻"
+else
+    icon="󰂎"
+fi
+
+# --- CLASS ---
+if [ "$status" = "Charging" ]; then
+    class="charging"
+elif [ "$capacity" -le 15 ]; then
+    class="critical"
+elif [ "$capacity" -le 40 ]; then
+    class="warning"
+else
+    class=""
+fi
+
+# --- OUTPUT ---
+printf '{"text":"%s %d%%","class":"%s","tooltip":"Battery: %d%% (%s)"}\n' \
+"$icon" "$capacity" "$class" "$capacity" "$status"

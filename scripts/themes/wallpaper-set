@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+WALL_DIR="$HOME/.local/share/wallpapers"
+CURRENT="$WALL_DIR/current"
+
+IMG="$1"
+
+[ ! -f "$IMG" ] && exit 1
+
+# Apply wallpaper
+awww img "$IMG" \
+    --transition-type any \
+    --transition-duration 2
+
+# Update current wallpaper
+ln -sfn "$(realpath "$IMG")" "$CURRENT"
