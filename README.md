@@ -1,8 +1,7 @@
-<!-- <p align="center">
-  <img src=".meta/assets/banner.png" width="100%">
-</p> -->
-
-<h1 align="center">Aiko Hyprland Dotfiles</h1>
+<p align="center">
+  <img src=".meta/assets/banner.png" width="75%" align="center">
+</p>
+<h1 align="center">Nuroneko shell</h1>
 
 <p align="center">
   Modular Hyprland environment for Arch & Artix Linux with cross-init support.
@@ -40,7 +39,9 @@ Built around a Wayland-native workflow with a distro-aware installation system a
 
 ## Preview
 
-Screenshots and previews will be added soon.
+<p align="center">
+  <img src=".meta/assets/preview.png" width="%" align="center">
+</p>
 
 ---
 
