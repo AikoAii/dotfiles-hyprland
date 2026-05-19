@@ -16,7 +16,7 @@
 
 ---
 
-## What is Aiko Hyprland?
+## What is nuroneko-shell?
 
 A clean, modular, and keyboard-driven Hyprland environment focused on productivity, maintainability, and aesthetics.
 
@@ -82,9 +82,12 @@ The installer automatically:
 * Reloads supported runtime components
 
 ```bash
-git clone https://github.com/AikoAii/dotfiles-hyprland.git ~/.config/dotfiles
+git clone https://github.com/AikoAii/nuroneko-shell.git ~/.config/nuroneko-shell
 
-cd ~/.config/dotfiles
+
+cd ~/.config/nuroneko-shell
+
+./install.sh
 
 chmod +x install.sh
 
